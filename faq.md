@@ -50,14 +50,20 @@ Ensure your browser is up to date for the best experience.
 
 **A**: 
 
-```mermaid
-graph LR
-    A[Lead Pool<br/>Public, Unassigned] -->|Claim| B[My Leads<br/>Assigned to You]
-    B -->|Convert| C[Customers<br/>Business Relationship]
-    
-    style A fill:#e1f5ff
-    style B fill:#fff4e1
-    style C fill:#e8f5e9
+```
+Lead Management Flow:
+┌──────────────┐      Claim      ┌──────────────┐
+│  Lead Pool   │ ──────────────► │  My Leads    │
+│ (Public,     │                  │ (Assigned    │
+│ Unassigned)  │                  │  to You)     │
+└──────────────┘                  └──────┬───────┘
+                                         │ Convert
+                                         ▼
+                                    ┌──────────────┐
+                                    │  Customers   │
+                                    │ (Business    │
+                                    │ Relationship) │
+                                    └──────────────┘
 ```
 
 - **Lead Pool**: Public leads available to all users. Anyone can claim them.
@@ -322,7 +328,7 @@ If your question isn't answered here:
 
 1. **Check Documentation**: Review the [User Guide](user-guide.md) or [Administrator Guide](admin-guide.md)
 2. **Contact Administrator**: Reach out to your organization's administrator
-3. **Support**: Contact the TinyCRM support team
+3. **Support**: Contact us at **contact@tinycrmgo.com**
 
 ---
 

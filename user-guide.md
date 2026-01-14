@@ -53,16 +53,29 @@ TinyCRM uses a three-tier lead management system:
 
 ### Lead Flow Diagram
 
-```mermaid
-graph LR
-    A[Lead Pool<br/>Public Leads] -->|Claim| B[My Leads<br/>Assigned to Me]
-    B -->|Convert| C[Customers<br/>Converted Leads]
-    C -->|Create Invoice| D[Invoices]
-    
-    style A fill:#e1f5ff
-    style B fill:#fff4e1
-    style C fill:#e8f5e9
-    style D fill:#f3e5f5
+```
+Lead Management Flow:
+┌──────────────┐
+│  Lead Pool   │ (Public Leads)
+│  (Unassigned) │
+└───────┬───────┘
+        │ Claim
+        ▼
+┌──────────────┐
+│  My Leads    │ (Assigned to Me)
+│  (My Leads)  │
+└───────┬───────┘
+        │ Convert
+        ▼
+┌──────────────┐
+│  Customers   │ (Converted Leads)
+│  (Customers) │
+└───────┬───────┘
+        │ Create Invoice
+        ▼
+┌──────────────┐
+│   Invoices   │
+└──────────────┘
 ```
 
 ### 1. Lead Pool
@@ -153,20 +166,46 @@ Create, manage, and track invoices for your customers.
 
 ### Invoice Workflow
 
-```mermaid
-graph TD
-    A[Create Invoice] --> B[Select Customer]
-    B --> C[Add Products]
-    C --> D[Apply Discount/Fees]
-    D --> E[Review & Save]
-    E --> F{Status}
-    F -->|Open| G[Edit/Update]
-    F -->|Confirmed| H[Send/Export]
-    F -->|Paid| I[Complete]
-    
-    style A fill:#e3f2fd
-    style E fill:#fff9c4
-    style I fill:#c8e6c9
+```
+Invoice Creation Process:
+┌──────────────┐
+│Create Invoice│
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│Select Customer│
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│ Add Products │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────────┐
+│Apply Discount/   │
+│Fees (Optional)   │
+└──────┬───────────┘
+       │
+       ▼
+┌──────────────┐
+│Review & Save  │
+└──────┬───────┘
+       │
+       ▼
+   ┌───┴───┐
+   │Status│
+   └───┬───┘
+       │
+   ┌───┼───┬──────────┐
+   │   │   │          │
+Open│   │Confirmed│   │Paid
+   │   │          │   │
+   │   │          │   │
+   ▼   ▼          ▼   ▼
+Edit Send      Complete
+Update Export
 ```
 
 ### Invoice Status
@@ -435,6 +474,14 @@ View your activity history:
 - [Administrator Guide](admin-guide.md) - Advanced administration
 - [FAQ](faq.md) - Frequently asked questions
 - [Subscription Guide](subscription.md) - Subscription and billing
+
+## Support
+
+For additional help or questions not covered in this guide:
+
+**Email**: contact@tinycrmgo.com
+
+You can also contact your system administrator for assistance.
 
 ---
 

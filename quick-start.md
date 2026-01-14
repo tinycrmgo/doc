@@ -48,11 +48,21 @@ The dashboard shows:
 
 ### Lead Flow Diagram
 
-```mermaid
-graph LR
-    A[Lead Pool] -->|Claim| B[My Leads]
-    B -->|Convert| C[Customers]
-    C -->|Create Invoice| D[Invoice]
+```
+Lead Flow:
+┌──────────┐    Claim    ┌──────────┐
+│Lead Pool │ ──────────► │My Leads  │
+└──────────┘              └────┬─────┘
+                                │ Convert
+                                ▼
+                           ┌──────────┐
+                           │Customers │
+                           └────┬─────┘
+                                │ Create Invoice
+                                ▼
+                           ┌──────────┐
+                           │ Invoice  │
+                           └──────────┘
 ```
 
 ### Steps:
@@ -103,13 +113,36 @@ graph LR
 
 ### Invoice Creation Flow
 
-```mermaid
-graph TD
-    A[Select Customer] --> B[Add Products]
-    B --> C[Apply Discount/Fees]
-    C --> D[Review Total]
-    D --> E[Save Invoice]
-    E --> F[Send/Export]
+```
+Invoice Creation Steps:
+┌──────────────┐
+│Select Customer│
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│ Add Products │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────────┐
+│Apply Discount/Fees│
+└──────┬───────────┘
+       │
+       ▼
+┌──────────────┐
+│ Review Total │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│ Save Invoice │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│ Send/Export  │
+└──────────────┘
 ```
 
 ---
@@ -152,6 +185,7 @@ Now that you've completed the basics:
 - **Detailed Instructions**: See [User Guide](user-guide.md)
 - **Troubleshooting**: Check [FAQ](faq.md)
 - **Admin Functions**: Read [Administrator Guide](admin-guide.md)
+- **Contact Support**: Email us at **contact@tinycrmgo.com**
 
 ---
 

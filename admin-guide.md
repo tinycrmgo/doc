@@ -20,15 +20,28 @@ Administrators have access to additional features for managing the organization,
 
 ### Administrator Roles
 
-```mermaid
-graph TB
-    A[Super Admin] --> B[Full System Access]
-    C[Tenant Admin] --> D[Tenant Management]
-    C --> E[User Management]
-    C --> F[Subscription Management]
-    
-    style A fill:#ff6b6b
-    style C fill:#4ecdc4
+```
+Administrator Hierarchy:
+┌─────────────────────────────────────┐
+│      Super Admin                    │
+│  (Full System Access)              │
+└─────────────────────────────────────┘
+              │
+              │
+┌─────────────▼─────────────┐
+│    Tenant Admin             │
+│  ┌───────────────────────┐   │
+│  │ Tenant Management    │   │
+│  │ User Management      │   │
+│  │ Subscription Mgmt    │   │
+│  └───────────────────────┘   │
+└─────────────────────────────┘
+              │
+              │
+┌─────────────▼─────────────┐
+│    Regular User            │
+│  (Standard CRM Features)   │
+└────────────────────────────┘
 ```
 
 | Role | Permissions | Scope |
@@ -61,19 +74,51 @@ Manage users within your tenant, including creating, editing, and assigning role
 
 ### User Management Workflow
 
-```mermaid
-graph TD
-    A[Create User] --> B[Set Role]
-    B --> C[Assign Permissions]
-    C --> D[Activate User]
-    D --> E[User Can Login]
-    
-    F[Edit User] --> G[Update Info]
-    G --> H[Change Role]
-    H --> I[Update Permissions]
-    
-    style A fill:#e3f2fd
-    style D fill:#c8e6c9
+```
+Creating a User:
+┌─────────────┐
+│Create User  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Set Role   │
+└──────┬──────┘
+       │
+       ▼
+┌──────────────────┐
+│Assign Permissions│
+└──────┬───────────┘
+       │
+       ▼
+┌─────────────┐
+│Activate User│
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│User Can Login│
+└─────────────┘
+
+Editing a User:
+┌─────────────┐
+│  Edit User  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Update Info │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Change Role │
+└──────┬──────┘
+       │
+       ▼
+┌──────────────────┐
+│Update Permissions│
+└──────────────────┘
 ```
 
 ### Creating a New User
@@ -163,16 +208,21 @@ Manage your organization's subscription plan, billing, and usage limits.
 
 ### Subscription Overview
 
-```mermaid
-graph LR
-    A[Current Plan] --> B[Usage Limits]
-    A --> C[Billing Cycle]
-    A --> D[Expiration Date]
-    B --> E[Customer Limit]
-    B --> F[User Limit]
-    
-    style A fill:#fff9c4
-    style B fill:#e3f2fd
+```
+Subscription Components:
+┌─────────────────────────────────┐
+│      Current Plan                │
+└───────────┬─────────────────────┘
+            │
+    ┌───────┼───────┬──────────────┐
+    │       │       │              │
+┌───▼───┐ ┌─▼───┐ ┌─▼──────┐ ┌─────▼────┐
+│Usage  │ │Bill │ │Expire  │ │Plan      │
+│Limits │ │Cycle│ │Date    │ │Features  │
+└───┬───┘ └─────┘ └────────┘ └──────────┘
+    │
+    ├──► Customer Limit
+    └──► User Limit
 ```
 
 ### Viewing Subscription
@@ -215,14 +265,14 @@ graph LR
 
 ### Upgrade Rules
 
-```mermaid
-graph LR
-    A[Starter] -->|Upgrade| B[Pro]
-    B -->|Upgrade| C[Business]
-    
-    style A fill:#ffeb3b
-    style B fill:#2196f3
-    style C fill:#4caf50
+```
+Plan Upgrade Path:
+┌─────────┐      ┌──────┐      ┌──────────┐
+│ Starter │ ───► │ Pro  │ ───► │ Business  │
+└─────────┘      └──────┘      └──────────┘
+   │                │               │
+   └────────────────┴───────────────┘
+      (Upgrade anytime)
 ```
 
 **Important Rules:**
@@ -325,17 +375,27 @@ Configure roles and permissions for fine-grained access control.
 
 ### Role System
 
-```mermaid
-graph TB
-    A[Role] --> B[Permissions]
-    B --> C[Module Access]
-    B --> D[Action Permissions]
-    C --> E[CRM]
-    C --> F[Sales]
-    C --> G[System]
-    
-    style A fill:#e3f2fd
-    style B fill:#fff9c4
+```
+Role Structure:
+┌──────────┐
+│  Role    │
+└────┬─────┘
+     │
+     ▼
+┌──────────────┐
+│ Permissions  │
+└──────┬───────┘
+       │
+   ┌───┴───┬──────────────┐
+   │       │              │
+┌──▼──┐ ┌──▼──┐    ┌──────▼─────┐
+│Module│ │Action│    │  Combined  │
+│Access│ │Perm. │    │  Access    │
+└──┬───┘ └─────┘    └────────────┘
+   │
+   ├──► CRM Module
+   ├──► Sales Module
+   └──► System Module
 ```
 
 ### Creating Roles
@@ -418,48 +478,6 @@ Configure automatic lead recycling:
 
 ---
 
-## Audit Logs
-
-Track all system changes and user activities.
-
-### Viewing Audit Logs
-
-1. Navigate to **System → Audit Logs**
-2. Filter logs by:
-   - **User**: Who made the change
-   - **Action**: What action was performed
-   - **Model**: What entity was changed
-   - **Date Range**: When it happened
-
-### Audit Log Information
-
-Each log entry contains:
-- **Timestamp**: When the action occurred
-- **User**: Who performed the action
-- **Action**: Type of action (Create, Update, Delete)
-- **Model**: Entity type (Company, Invoice, User, etc.)
-- **Changes**: What was changed (before/after values)
-
-### Audit Log Types
-
-| Type | Description |
-|------|-------------|
-| **Create** | New record created |
-| **Update** | Existing record modified |
-| **Delete** | Record deleted |
-| **Login** | User login events |
-| **Permission** | Permission changes |
-
-### Exporting Audit Logs
-
-1. Go to **System → Audit Logs**
-2. Apply filters (optional)
-3. Click **Export**
-4. Choose format (CSV, Excel)
-5. Download file
-
----
-
 ## Best Practices
 
 ### User Management
@@ -479,9 +497,9 @@ Each log entry contains:
 ### Security
 
 1. **Strong Passwords**: Enforce strong password policies
-2. **Regular Audits**: Review audit logs regularly
-3. **Access Control**: Follow principle of least privilege
-4. **User Training**: Ensure users understand security practices
+2. **Access Control**: Follow principle of least privilege
+3. **User Training**: Ensure users understand security practices
+4. **Regular Reviews**: Periodically review user access and permissions
 
 ### System Maintenance
 
@@ -508,9 +526,6 @@ Each log entry contains:
 **Q: Files not uploading**
 - **A**: Check file size limits and storage quota. Verify file type is supported.
 
-**Q: Audit logs missing**
-- **A**: Audit logging may be disabled. Check system settings.
-
 ---
 
 ## Additional Resources
@@ -519,6 +534,12 @@ Each log entry contains:
 - [Quick Start Guide](quick-start.md) - Getting started
 - [Subscription Guide](subscription.md) - Detailed subscription information
 - [FAQ](faq.md) - Frequently asked questions
+
+## Support
+
+For additional assistance with administration tasks:
+
+**Email**: contact@tinycrmgo.com
 
 ---
 

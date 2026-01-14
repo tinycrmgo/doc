@@ -47,18 +47,27 @@ TinyCRM is a multi-tenant SaaS Customer Relationship Management system designed 
 
 ## 🏗️ System Architecture
 
-```mermaid
-graph TB
-    A[Tenant] --> B[Users]
-    A --> C[Subscription]
-    B --> D[Lead Pool]
-    B --> E[My Leads]
-    B --> F[Customers]
-    F --> G[Invoices]
-    G --> H[Products]
-    C --> I[Plan Limits]
-    I --> D
-    I --> F
+```
+┌─────────────┐
+│   Tenant    │
+└──────┬──────┘
+       │
+   ┌───┴───┬──────────────┐
+   │       │              │
+┌──▼──┐ ┌──▼──┐    ┌─────▼─────┐
+│Users│ │Sub. │    │Plan Limits│
+└──┬──┘ └─────┘    └─────┬─────┘
+   │                     │
+   │    ┌───────────────┼───────┐
+   │    │               │       │
+┌──▼──┐┌▼──┐ ┌─────────▼──┐ ┌─▼────┐
+│Lead ││My │ │  Customers  │ │Invo. │
+│Pool ││Leads│ └──────┬─────┘ └──┬───┘
+└─────┘└────┘         │          │
+                      │          │
+                  ┌───▼──────────▼───┐
+                  │    Products       │
+                  └──────────────────┘
 ```
 
 ## 📋 Key Concepts
@@ -90,7 +99,11 @@ Lead Pool → My Leads → Customers
 
 ## 📞 Support
 
-For additional support or questions not covered in this documentation, please contact your system administrator or support team.
+For additional support or questions not covered in this documentation, please contact:
+
+**Email**: contact@tinycrmgo.com
+
+You can also contact your system administrator for assistance.
 
 ---
 

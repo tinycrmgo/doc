@@ -1,246 +1,334 @@
+# Subscription & Billing Guide
 
+Complete guide to understanding and managing your TinyCRM subscription.
+
+## Table of Contents
+
+1. [Subscription Overview](#subscription-overview)
+2. [Subscription Plans](#subscription-plans)
+3. [Billing Cycles](#billing-cycles)
+4. [Subscription Status](#subscription-status)
+5. [Upgrading Your Plan](#upgrading-your-plan)
+6. [Renewal & Expiration](#renewal--expiration)
+7. [Usage Limits](#usage-limits)
+8. [Payment & Billing](#payment--billing)
 
 ---
 
-# SaaS 订阅与计费产品手册（Product & Engineering）
+## Subscription Overview
 
-## 1. 设计目标
+Your TinyCRM subscription provides access to all features based on your selected plan. Each organization (tenant) can have one active subscription at a time.
 
-* 支持 **多租户（Tenant）** 的 SaaS 订阅计费
-* 套餐固定：Starter / Pro / Business
-* 支付周期仅支持：**月付 / 年付**
-* 支持试用、升级
-* **不支持降级**
-* **不支持用户自行取消（仅客服）**
+### How Subscriptions Work
 
----
-
-## 2. 核心业务对象
-
-### 2.1 租户（Tenant）
-
-* **计费主体**
-* 一个租户在同一时间 **仅允许存在一个有效订阅**
-
-你提供的表作为 **核心主表**： 已经存在不用改
-
-```sql
-CREATE TABLE `crm_tenant` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT 'Tenant ID',
-  `name` varchar(255) NOT NULL COMMENT 'Organization/Company Name',
-  `slug` varchar(100) DEFAULT NULL COMMENT 'Tenant Identifier (unique)',
-  `email` varchar(255) DEFAULT NULL COMMENT 'Contact Email',
-  `phone` varchar(50) DEFAULT NULL COMMENT 'Contact Phone',
-  `address` text COMMENT 'Address',
-  `tax_number` varchar(100) DEFAULT NULL COMMENT 'Tax ID Number',
-  `status` tinyint NOT NULL DEFAULT '1' COMMENT 'Status: 1=active, 0=suspended',
-  `owner_id` int DEFAULT NULL COMMENT 'Primary Admin User ID',
-  `created_at`  int NOT NULL,
-  `updated_at`  int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_tenant_slug` (`slug`)
-) COMMENT='Tenant/Organization Table';
+```
+Subscription Flow:
+┌─────────────┐
+│   Trial     │ (Optional free trial)
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Subscribe  │ (Choose plan & billing cycle)
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│   Active     │ (Full access to features)
+└──────┬──────┘
+       │
+       ├──► Renew ──► Active (continued)
+       │
+       └──► Expire ──► Limited Access
 ```
 
 ---
 
-## 3. 套餐与周期定义
+## Subscription Plans
 
-### 3.1 套餐定义（逻辑层）
+TinyCRM offers three subscription plans to meet different business needs:
 
-| plan     | name     |
-| -------- | -------- |
-| starter  | Starter  |
-| pro      | Pro      |
-| business | Business |
+### Plan Comparison
 
-规则：
+| Plan | Best For | Key Features |
+|------|----------|--------------|
+| **Starter** | Small teams, getting started | Basic CRM features, essential lead and customer management |
+| **Pro** | Growing businesses | Advanced features, higher limits, priority support |
+| **Business** | Large organizations | Full feature access, maximum limits, dedicated support |
 
-* 套餐等级：starter < pro < business
-* 仅允许向上升级
+### Plan Features
 
----
+**Starter Plan:**
+- Lead Pool management
+- Customer management
+- Invoice creation and management
+- Product catalog
+- Basic reporting
 
-### 3.2 付费周期
+**Pro Plan:**
+- All Starter features
+- Higher customer and user limits
+- Advanced reporting and analytics
+- Priority email support
+- Enhanced file storage
 
-| code    | 说明 |
-| ------- | -- |
-| monthly | 月付 |
-| yearly  | 年付 |
-
----
-
-## 4. 订阅状态模型
-
-| 状态       | 说明       |
-| -------- | -------- |
-| trialing | 试用中      |
-| active   | 已激活      |
-| expired  | 已到期      |
-| canceled | 已取消（仅客服） |
-
----
-
-## 5. 升级与计费规则
-
-### 5.1 升级原则
-
-* 任意时间可升级
-* 升级后：
-
-  * 权限立即生效
-  * **到期时间不变**
-* 不允许降级
+**Business Plan:**
+- All Pro features
+- Maximum customer and user limits
+- Advanced customization options
+- Dedicated account manager
+- Premium support (phone & email)
 
 ---
 
-### 5.2 差价补扣公式（Proration）
+## Billing Cycles
 
-```text
-upgrade_amount =
-(new_plan_price - current_plan_price)
-× (remaining_days / total_days)
+Choose between monthly or yearly billing:
+
+### Monthly Billing
+
+- **Payment**: Charged monthly
+- **Flexibility**: Easy to adjust as needs change
+- **Cost**: Standard monthly rate
+
+### Yearly Billing
+
+- **Payment**: Charged once per year
+- **Savings**: Typically offers discount compared to monthly
+- **Stability**: Lock in pricing for a full year
+
+> 💡 **Tip**: Yearly billing often provides cost savings. Check current pricing for details.
+
+---
+
+## Subscription Status
+
+Your subscription can be in one of several states:
+
+### Status Types
+
+| Status | Description | What You Can Do |
+|--------|-------------|-----------------|
+| **Trialing** | Free trial period active | Use all features, upgrade anytime |
+| **Active** | Paid subscription active | Full access to all features in your plan |
+| **Expired** | Subscription has expired | Limited access, renew to restore full features |
+| **Canceled** | Subscription canceled | Contact support to reactivate |
+
+### Status Flow
+
+```
+Trialing ──► Active ──► Expired
+              │
+              └──► Canceled (by support only)
 ```
 
 ---
 
-## 6. 取消规则
+## Upgrading Your Plan
 
-* ❌ 用户端不提供取消入口
-* ✔️ 仅客服 / Admin 可操作
-* 是否退款由人工判断
+You can upgrade your subscription at any time to access more features and higher limits.
 
----
+### Upgrade Process
 
-# 数据库表结构设计（核心）
+1. Navigate to **System → Subscription**
+2. Click **Upgrade**
+3. Select your desired plan (Pro or Business)
+4. Review the upgrade details:
+   - New features you'll gain
+   - New limits
+   - Prorated charge amount
+5. Confirm the upgrade
 
----
+### Upgrade Rules
 
-## 7. 套餐价格表（crm_plan）
-
-```sql
-CREATE TABLE `crm_plan` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `plan` varchar(50) NOT NULL COMMENT 'starter / pro / business',
-  `name` varchar(100) NOT NULL,
-  `monthly_price` decimal(10,2) NOT NULL COMMENT 'Monthly price',
-  `yearly_price` decimal(10,2) NOT NULL COMMENT 'Yearly price',
-  `level` int NOT NULL COMMENT 'Plan level, higher = more advanced',
-  `status` tinyint NOT NULL DEFAULT 1 COMMENT '1=active,0=disabled',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_plan_code` (`code`)
-) COMMENT='Subscription Plans';
+```
+Plan Upgrade Path:
+Starter ──► Pro ──► Business
+  │         │         │
+  └─────────┴─────────┘
+    (Upgrade anytime)
 ```
 
+**Important Notes:**
+- ✅ Upgrades take effect immediately
+- ✅ New features and limits are available right away
+- ✅ You're charged the prorated difference
+- ✅ Your expiration date remains the same
+- ❌ Downgrades are not available (contact support for assistance)
+
+### Upgrade Benefits
+
+When you upgrade:
+- **Immediate Access**: New features unlock right away
+- **Higher Limits**: More customers, users, and storage
+- **Better Support**: Priority or dedicated support depending on plan
+- **Advanced Features**: Access to premium functionality
+
 ---
 
-## 8. 租户订阅表（crm_subscription）
+## Renewal & Expiration
 
-```sql
-CREATE TABLE `crm_subscription` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `tenant_id` int NOT NULL COMMENT 'Tenant ID',
-  `plan_code` varchar(50) NOT NULL,
-  `billing_cycle` varchar(20) NOT NULL COMMENT 'monthly/yearly',
-  `status` varchar(20) NOT NULL COMMENT 'trialing/active/expired/canceled',
-  `started_at`  int NOT NULL,
-  `ended_at`  int NOT NULL COMMENT 'Subscription expiration time',
-  `trial_ends_at` int NOT NULL,
-  `created_at`  int NOT NULL,
-  `updated_at`  int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_sub_tenant` (`tenant_id`),
-  CONSTRAINT `fk_sub_tenant`
-    FOREIGN KEY (`tenant_id`) REFERENCES `crm_tenant` (`id`)
-) COMMENT='Tenant Subscription';
+### Subscription Renewal
+
+Renew your subscription before it expires to avoid service interruption:
+
+1. Go to **System → Subscription**
+2. Check your expiration date
+3. Click **Renew** before expiration
+4. Select billing cycle (Monthly/Yearly)
+5. Complete payment
+
+> ⚠️ **Important**: Renew before expiration to maintain uninterrupted access to all features.
+
+### What Happens When Subscription Expires
+
+If your subscription expires:
+- Some features may be limited
+- You'll see reminders to renew
+- Your data is preserved
+- Renew anytime to restore full access
+
+### Automatic Renewal
+
+Currently, subscriptions do not auto-renew. You'll need to manually renew before expiration. We recommend setting a reminder for yourself.
+
+---
+
+## Usage Limits
+
+Each subscription plan includes limits on:
+
+### Common Limits
+
+- **Customers**: Maximum number of customers you can have
+- **Users**: Maximum number of user accounts
+- **Storage**: File storage space
+- **Leads**: Lead pool size (if applicable)
+
+### Checking Your Usage
+
+1. Navigate to **System → Subscription**
+2. View the **Usage** section
+3. See current usage vs. your plan limits
+
+### Usage Display Example
+
+```
+Current Usage:
+┌─────────────────────────────┐
+│ Customers: 45 / 100         │ ████████░░ 45%
+│ Users: 8 / 20               │ ████████░░ 40%
+│ Storage: 2.5GB / 10GB       │ ████░░░░░░ 25%
+└─────────────────────────────┘
 ```
 
-**关键约束（逻辑层）：**
+### Approaching Limits
 
-* 一个 tenant 同一时间仅允许 1 条 `status in (trialing, active)` 的订阅
+When you approach your limits:
+- **80% Usage**: System shows a warning
+- **95% Usage**: Critical alert displayed
+- **At Limit**: You cannot add more until you upgrade
 
----
-
-## 9. 订单表（crm_order）
-
-```sql
-CREATE TABLE `crm_order` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `tenant_id` int NOT NULL,
-  `subscription_id` int DEFAULT NULL,
-  `order_no` varchar(64) NOT NULL COMMENT 'Unique order number',
-  `order_type` varchar(20) NOT NULL COMMENT 'new/renew/upgrade',
-  `amount` decimal(10,2) NOT NULL COMMENT 'Order amount',
-  `currency` varchar(10) NOT NULL DEFAULT 'CNY',
-  `status` varchar(20) NOT NULL COMMENT 'pending/paid/failed/refunded',
-  `created_at`  int NOT NULL,
-  `paid_at`  int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_order_no` (`order_no`),
-  KEY `idx_order_tenant` (`tenant_id`)
-) COMMENT='订阅订单 Orders';
-```
+> 💡 **Tip**: Monitor your usage regularly and upgrade before hitting limits to avoid interruptions.
 
 ---
 
-## 10. 支付记录表（crm_payment）
+## Payment & Billing
 
-```sql
-CREATE TABLE `crm_payment` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `order_id` int NOT NULL,
-  `payment_method` varchar(50) NOT NULL COMMENT 'alipay/wechat/stripe',
-  `transaction_no` varchar(100) DEFAULT NULL COMMENT 'Gateway transaction ID',
-  `amount` decimal(10,2) NOT NULL,
-  `status` varchar(20) NOT NULL COMMENT 'success/failed',
-  `paid_at`  int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_payment_order` (`order_id`),
-  CONSTRAINT `fk_payment_order`
-    FOREIGN KEY (`order_id`) REFERENCES `crm_order` (`id`)
-) COMMENT='订单支付 Records';
-```
+### Payment Methods
 
----
+Accepted payment methods may include:
+- Credit cards
+- Debit cards
+- Bank transfers (for yearly plans)
+- Other methods as available
 
-## 11. 升级记录表（crm_subscription_upgrade）
+### Billing Information
 
-```sql
-CREATE TABLE `crm_subscription_upgrade` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `subscription_id` int NOT NULL,
-  `from_plan` varchar(50) NOT NULL,
-  `to_plan` varchar(50) NOT NULL,
-  `upgrade_amount` decimal(10,2) NOT NULL,
-  `created_at`  int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_upgrade_sub` (`subscription_id`)
-) COMMENT='Subscription Upgrade History';
-```
+- **Billing Address**: Update in subscription settings
+- **Payment Method**: Manage in subscription settings
+- **Invoice History**: View past invoices and payments
+
+### Invoice Access
+
+1. Go to **System → Subscription**
+2. Click **View Invoices** or **Payment History**
+3. Download invoices as needed
+
+### Payment Issues
+
+If you experience payment issues:
+1. Check your payment method is valid
+2. Verify sufficient funds
+3. Contact support: **contact@tinycrmgo.com**
 
 ---
 
-## 12. 推荐状态流转（研发参考）
+## Subscription Management
 
-```text
-trialing → active → expired
-               ↘
-              canceled（客服）
-```
+### Viewing Your Subscription
+
+1. Navigate to **System → Subscription**
+2. View complete subscription details:
+   - Current plan
+   - Status
+   - Billing cycle
+   - Start and end dates
+   - Usage statistics
+
+### Changing Billing Cycle
+
+To change from monthly to yearly (or vice versa):
+1. Wait until renewal time
+2. Select new billing cycle during renewal
+3. Or contact support: **contact@tinycrmgo.com**
+
+### Cancellation
+
+Subscriptions cannot be canceled by users directly. If you need to cancel:
+- Contact support: **contact@tinycrmgo.com**
+- Cancellation and refund policies apply
+- Your data will be preserved according to retention policies
 
 ---
 
-## 13. 核心设计原则（必须遵守）
+## Frequently Asked Questions
 
-* 订阅主体 = tenant
-* 权限判断基于 **crm_subscription.plan_code**
-* 升级：
+### Q: Can I switch plans anytime?
 
-  * 永远补差价
-  * 永远不延长时间
-* 不允许：
+**A**: Yes, you can upgrade anytime. Downgrades require contacting support.
 
-  * 降级
-  * 用户自行取消
+### Q: What happens to my data if I don't renew?
+
+**A**: Your data is preserved for a period. Contact support for specific retention policies.
+
+### Q: Can I get a refund?
+
+**A**: Refund policies vary. Contact support: **contact@tinycrmgo.com** for assistance.
+
+### Q: How do I change my payment method?
+
+**A**: Update payment information in **System → Subscription** settings.
+
+### Q: What if I exceed my limits?
+
+**A**: You'll need to upgrade to a higher plan. The system will prevent adding more items once limits are reached.
 
 ---
+
+## Need Help?
+
+For subscription and billing questions:
+
+**Email**: contact@tinycrmgo.com
+
+Our support team can help with:
+- Plan selection advice
+- Upgrade assistance
+- Billing questions
+- Payment issues
+- Subscription management
+
+---
+
+*Last Updated: January 2025*
