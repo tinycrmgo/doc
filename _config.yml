@@ -4,7 +4,6 @@
 title: TinyCRM Documentation
 description: Complete guide to using TinyCRM for managing leads, customers, invoices, and products
 url: https://www.tinycrmgo.com
-baseurl: ""
 
 # Theme
 theme: jekyll-theme-minima
