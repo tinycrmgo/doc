@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TinyCRM Documentation</title>
+    <title>Quick Start Guide - TinyCRM Documentation</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha512-lzilC+JFd6YV8+vQRNRtU7DOqv5Sa9Ek53lXt/k91HZTJpytHS1L6l1mMKR9K6VVoDt4LiEXaa6XBrYk1YhGTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
     <style>
@@ -94,8 +94,8 @@
                 emoji: true
             });
 
-            // 读取 index.md 文件
-            $.get('index.md')
+            // 读取 quick-start.md 文件
+            $.get('quick-start.md')
                 .done(function(markdown) {
                     // 将 markdown 链接转换为 HTML 链接
                     markdown = markdown.replace(/\[([^\]]+)\]\(([^)]+\.md)\)/g, function(match, text, link) {
@@ -112,7 +112,7 @@
                 })
                 .fail(function() {
                     $('#loading').hide();
-                    $('#error').text('无法加载 index.md 文件。请确保文件存在。').show();
+                    $('#error').text('无法加载 quick-start.md 文件。请确保文件存在。').show();
                 });
         });
     </script>
