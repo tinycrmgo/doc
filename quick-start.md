@@ -1,11 +1,3 @@
----
-layout: default
-title: Quick Start Guide
-nav_order: 2
-description: "Get up and running with TinyCRM in 5 minutes"
-permalink: /quick-start/
----
-
 # Quick Start Guide
 
 Welcome to TinyCRM! This guide will help you get started in just 5 minutes.

@@ -1,11 +1,3 @@
----
-layout: default
-title: Subscription & Billing
-nav_order: 5
-description: "Complete guide to understanding and managing your TinyCRM subscription"
-permalink: /subscription/
----
-
 # Subscription & Billing Guide
 
 Complete guide to understanding and managing your TinyCRM subscription.
