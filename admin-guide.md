@@ -1,3 +1,11 @@
+---
+layout: default
+title: Administrator Guide
+nav_order: 4
+description: "Comprehensive guide for administrators and tenant administrators managing TinyCRM"
+permalink: /admin-guide/
+---
+
 # Administrator Guide
 
 Comprehensive guide for administrators and tenant administrators managing TinyCRM.

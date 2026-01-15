@@ -7,7 +7,7 @@ url: https://www.tinycrmgo.com
 baseurl: ""
 
 # Theme
-theme: just-the-docs
+theme: jekyll-theme-minima
 
 # Plugins
 plugins:

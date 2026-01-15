@@ -1,3 +1,11 @@
+---
+layout: default
+title: User Guide
+nav_order: 3
+description: "Complete guide to using TinyCRM for managing leads, customers, invoices, and products"
+permalink: /user-guide/
+---
+
 # User Guide
 
 Complete guide to using TinyCRM for managing leads, customers, invoices, and products.

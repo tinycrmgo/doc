@@ -1,114 +1,75 @@
-# TinyCRM Documentation
+# TinyCRM Documentation Site
 
-Welcome to the TinyCRM documentation! This comprehensive guide will help you understand and use all features of the TinyCRM system.
+This is a Jekyll site for TinyCRM documentation, configured to work with GitHub Pages using the `just-the-docs` theme.
 
-**Website**: [https://www.tinycrmgo.com](https://www.tinycrmgo.com)
+## Setup Instructions
 
-## 📚 Documentation Structure
+### For GitHub Pages
 
-### [Quick Start Guide](quick-start.md)
-Get up and running with TinyCRM in 5 minutes. Perfect for new users who want to start immediately.
+1. **Push to GitHub**: Push this `doc` folder to a GitHub repository
+2. **Enable GitHub Pages**: 
+   - Go to repository Settings → Pages
+   - Select source: "Deploy from a branch"
+   - Choose branch: `main` (or your default branch)
+   - Select folder: `/docs` (if you put docs in a docs folder) or `/` (if this is the root)
+3. **Wait for build**: GitHub will automatically build and deploy your site
 
-### [User Guide](user-guide.md)
-Complete user manual covering all features available to regular users:
-- Dashboard Overview
-- Lead Management (Lead Pool, My Leads, Customers)
-- Invoice Management
-- Product Management
-- Personal Settings
+### Local Development
 
-### [Administrator Guide](admin-guide.md)
-Comprehensive guide for administrators and tenant admins:
-- User Management
-- Subscription Management
-- File Management
-- System Configuration
-- Permission Management
+1. **Install Ruby and Bundler** (if not already installed)
+   ```bash
+   # Check Ruby version (need 2.5+)
+   ruby --version
+   
+   # Install Bundler
+   gem install bundler
+   ```
 
-### [Subscription & Billing](subscription.md)
-Detailed documentation about SaaS subscription and billing features:
-- Plan Types (Starter, Pro, Business)
-- Billing Cycles (Monthly, Yearly)
-- Upgrade Rules
-- Payment Processing
+2. **Install dependencies**
+   ```bash
+   cd doc
+   bundle install
+   ```
 
-### [FAQ](faq.md)
-Frequently asked questions and troubleshooting tips.
+3. **Run Jekyll server**
+   ```bash
+   bundle exec jekyll serve
+   ```
 
----
+4. **View site**: Open http://localhost:4000 in your browser
 
-## 🎯 System Overview
-
-TinyCRM is a multi-tenant SaaS Customer Relationship Management system designed to help businesses manage:
-
-- **Lead Management**: Capture, track, and convert leads
-- **Customer Management**: Maintain comprehensive customer profiles
-- **Invoice & Order Management**: Create invoices, manage orders, and track payments
-- **Product Management**: Organize and manage your product catalog
-- **Team Collaboration**: Multi-user support with role-based permissions
-
-## 🏗️ System Architecture
+## File Structure
 
 ```
-┌─────────────┐
-│   Tenant    │
-└──────┬──────┘
-       │
-   ┌───┴───┬──────────────┐
-   │       │              │
-┌──▼──┐ ┌──▼──┐    ┌─────▼─────┐
-│Users│ │Sub. │    │Plan Limits│
-└──┬──┘ └─────┘    └─────┬─────┘
-   │                     │
-   │    ┌───────────────┼───────┐
-   │    │               │       │
-┌──▼──┐┌▼──┐ ┌─────────▼──┐ ┌─▼────┐
-│Lead ││My │ │  Customers  │ │Invo. │
-│Pool ││Leads│ └──────┬─────┘ └──┬───┘
-└─────┘└────┘         │          │
-                      │          │
-                  ┌───▼──────────▼───┐
-                  │    Products       │
-                  └──────────────────┘
+doc/
+├── _config.yml          # Jekyll configuration
+├── Gemfile              # Ruby dependencies
+├── index.md             # Home page
+├── quick-start.md       # Quick start guide
+├── user-guide.md        # User guide
+├── admin-guide.md       # Administrator guide
+├── subscription.md      # Subscription guide
+└── faq.md              # FAQ
 ```
 
-## 📋 Key Concepts
+## Theme
 
-### Lead Flow
-```
-Lead Pool → My Leads → Customers
-   (Public)   (Assigned)  (Converted)
-```
+This site uses the [just-the-docs](https://github.com/just-the-docs/just-the-docs) theme, which is perfect for documentation sites with:
+- Sidebar navigation
+- Search functionality
+- Clean, readable design
+- Mobile responsive
 
-### User Roles
-- **Admin**: Full system access
-- **Tenant Admin**: Manage tenant users and settings
-- **Regular User**: Access to assigned leads and customers
+## Customization
 
-### Subscription Plans
-| Plan | Features |
-|------|----------|
-| Starter | Basic lead and customer management |
-| Pro | Advanced features with higher limits |
-| Business | Full feature access with maximum limits |
+Edit `_config.yml` to customize:
+- Site title and description
+- Theme colors
+- Navigation links
+- Footer content
 
-## 🚀 Getting Started
+## Support
 
-1. **New User?** Start with the [Quick Start Guide](quick-start.md)
-2. **Need Details?** Read the [User Guide](user-guide.md)
-3. **Administrator?** Check the [Administrator Guide](admin-guide.md)
-4. **Have Questions?** Visit the [FAQ](faq.md)
-
-## 📞 Support
-
-For additional support or questions not covered in this documentation, please contact:
-
-**Website**: [https://www.tinycrmgo.com](https://www.tinycrmgo.com)
-
-**Email**: contact@tinycrmgo.com
-
-You can also contact your system administrator for assistance.
-
----
-
-*Last Updated: January 2025*
+For issues or questions:
+- **Website**: https://www.tinycrmgo.com
+- **Email**: contact@tinycrmgo.com

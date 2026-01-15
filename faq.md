@@ -1,3 +1,11 @@
+---
+layout: default
+title: FAQ
+nav_order: 6
+description: "Frequently asked questions and answers about using TinyCRM"
+permalink: /faq/
+---
+
 # Frequently Asked Questions (FAQ)
 
 Common questions and answers about using TinyCRM.
