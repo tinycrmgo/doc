@@ -1,0 +1,65 @@
+# Jekyll Configuration for TinyCRM Documentation
+# Theme: just-the-docs (perfect for documentation sites)
+
+title: TinyCRM Documentation
+description: Complete guide to using TinyCRM for managing leads, customers, invoices, and products
+url: https://www.tinycrmgo.com
+baseurl: ""
+
+# Theme
+theme: just-the-docs
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Site settings
+logo: "/assets/images/logo.png"  # Optional: add your logo
+search_enabled: true
+heading_anchors: true
+aux_links:
+  "TinyCRM Website":
+    - "https://www.tinycrmgo.com"
+aux_links_new_tab: true
+
+# Footer content
+footer_content: "Copyright &copy; 2025 TinyCRM. All rights reserved. <br> <a href='https://www.tinycrmgo.com'>Website</a> | <a href='mailto:contact@tinycrmgo.com'>Contact</a>"
+
+# Color scheme
+color_scheme: light  # Options: light, dark, auto
+
+# Navigation structure
+nav_external_links: true
+nav_external_links_new_tab: true
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - .gitignore
+
+# Collections (if needed)
+collections:
+  docs:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      search: true
