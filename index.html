@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinyCrmGo - AI-powered Tiny CRM for Small Teams</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome v4 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --gradient-light: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 0.75rem;
+        }
+        
+        .section {
+            padding: 6rem 0;
+        }
+        
+        .section-alt {
+            background: var(--gradient-light);
+        }
+        
+        .hero {
+            padding: 12rem 0 8rem;
+            background: var(--gradient-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero h1 {
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-outline-primary {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background: transparent;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .feature-card {
+            padding: 2.5rem;
+            background: var(--bg-white);
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem !important;
+            line-height: 1;
+            margin: 0;
+        }
+        
+        .feature-icon-wrapper {
+            width: 72px;
+            height: 72px;
+            margin-bottom: 1.5rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: var(--gradient-light);
+        }
+        
+        .feature-card h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .feature-card p {
+            margin-bottom: 0;
+            flex-grow: 1;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .pricing-card {
+            background: var(--bg-white);
+            border: 2px solid #e5e7eb;
+            border-radius: 1.25rem;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .pricing-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--primary-color);
+            border-width: 3px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+            line-height: 1;
+        }
+        
+        .check-icon {
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-sm);
+            padding: 1.25rem 0;
+            transition: all 0.3s;
+        }
+        
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+            padding: 0.75rem 0;
+        }
+        
+        .navbar-brand {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-color) !important;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            padding: 0.5rem 1.25rem !important;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        .testimonial {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+        }
+        
+        .testimonial:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            object-fit: cover;
+            border: 3px solid #e5e7eb;
+        }
+        
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 0;
+            flex-grow: 1;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .faq-item {
+            background: var(--bg-white);
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .faq-question {
+            padding: 1.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--bg-light);
+        }
+        
+        .faq-answer {
+            padding: 1.25rem ;
+            color: var(--text-light);
+            display: none;
+            line-height: 1.8;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        .cta-section {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .cta-section .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-section p {
+            font-size: 1.35rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-section .btn-primary {
+            background: white !important;
+            background-color: white !important;
+            color: var(--primary-color) !important;
+            font-size: 1.25rem;
+            padding: 1.25rem 3.5rem;
+            position: relative;
+            z-index: 2;
+            border: 2px solid white !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+            font-weight: 700;
+        }
+        
+        .cta-section .btn-primary:hover {
+            background: #f8f9fa !important;
+            background-color: #f8f9fa !important;
+            color: var(--primary-color) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+            border-color: #f8f9fa !important;
+        }
+        
+        .cta-section .btn-primary:focus,
+        .cta-section .btn-primary:active {
+            background: white !important;
+            background-color: white !important;
+            color: var(--primary-color) !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        /* Screenshot Carousel */
+        .screenshot-carousel {
+            background: var(--bg-white);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            margin: 3rem 0;
+        }
+        
+        .carousel-inner {
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0.5rem;
+        }
+        
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.9;
+        }
+        
+        .carousel-control-prev {
+            left: -25px;
+        }
+        
+        .carousel-control-next {
+            right: -25px;
+        }
+        
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1;
+            background: var(--primary-dark);
+        }
+        
+        .carousel-indicators {
+            bottom: -50px;
+        }
+        
+        .carousel-indicators button {
+            background-color: var(--primary-color);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        
+        .benefit-card {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .benefit-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(8px);
+        }
+        
+        .benefit-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .benefit-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+            
+            .section {
+                padding: 4rem 0;
+            }
+            
+            .navbar-nav .btn {
+                margin-left: 0;
+                margin-top: 0.5rem;
+                width: 100%;
+            }
+            
+            .carousel-control-prev {
+                left: 10px;
+            }
+            
+            .carousel-control-next {
+                right: 10px;
+            }
+            
+            .screenshot-carousel {
+                padding: 1.5rem;
+            }
+            
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        footer a {
+            transition: opacity 0.3s;
+        }
+        
+        footer a:hover {
+            opacity: 1 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">TinyCrmGo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#screenshots">Screenshots</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/site/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary" href="/site/register">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1>AI-Powered CRM Built for Small Teams</h1>
+                    <p>Stop struggling with complex, expensive CRMs. Get everything you need to manage leads, customers, contracts, and sales—all in one simple, affordable platform enhanced with intelligent automation.</p>
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="check-icon">✓</span>
+                            <span>Set up in minutes, not weeks</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="check-icon">✓</span>
+                            <span>AI-enhanced features for smarter workflows</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="check-icon">✓</span>
+                            <span>Intuitive interface—no training needed</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="check-icon">✓</span>
+                            <span>All features included from $1.99/month</span>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="#pricing" class="btn btn-primary me-3"><i class="fa fa-rocket" style="margin-right: 20px;"></i> Start Free Trial</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-illustration text-center">
+                        <img src="/images/undraw_celebrating-2026_sipw.svg" alt="CRM Dashboard" class="img-fluid" style="max-width: 100%; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="section" id="benefits">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2>Why Small Teams Choose TinyCrmGo</h2>
+                    <p class="lead text-muted">We solve the real problems small teams face with traditional CRMs, enhanced with intelligent AI capabilities</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fa fa-bolt"></i>
+                        </div>
+                        <h4>Get Started in Minutes</h4>
+                        <p>No lengthy onboarding or complex setup. Sign up, invite your team, and start managing your business immediately. Our intuitive interface means zero learning curve.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fa fa-dollar"></i>
+                        </div>
+                        <h4>Transparent, Affordable Pricing</h4>
+                        <p>Starting at just $1.99/month with full feature access. No hidden fees, no per-user charges, no feature locks. Pay only for the scale you need.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fa fa-check-circle"></i>
+                        </div>
+                        <h4>Everything You Need, Nothing You Don't</h4>
+                        <p>Complete CRM functionality without the bloat. Manage leads, customers, contracts, orders, invoices, and products—all in one streamlined platform enhanced with AI-powered insights.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <h4>Built for Small Teams</h4>
+                        <p>Designed specifically for freelancers, solopreneurs, and small businesses. Every feature is tailored to help small teams work more efficiently.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fa fa-shield"></i>
+                        </div>
+                        <h4>Secure & Reliable</h4>
+                        <p>Enterprise-grade security with lightweight performance. Your data is protected with secure authentication, regular backups, and GDPR-compliant handling.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fa fa-mobile"></i>
+                        </div>
+                        <h4>Works Everywhere</h4>
+                        <p>Fully responsive design that works perfectly on desktop, tablet, and mobile. Access your CRM from anywhere, on any device.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshot Carousel -->
+    <section class="section section-alt" id="screenshots">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="text-center mb-5">
+                        <h2>See TinyCrmGo In Action</h2>
+                        <p class="lead text-muted">Explore our clean, intuitive interface designed for productivity</p>
+                    </div>
+                    <div class="screenshot-carousel">
+                        <div id="screenshotCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#screenshotCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#screenshotCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#screenshotCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                <button type="button" data-bs-target="#screenshotCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                <button type="button" data-bs-target="#screenshotCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                                <button type="button" data-bs-target="#screenshotCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="/images/dashboard.png" class="d-block w-100" alt="Dashboard Screenshot">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="/images/company.png" class="d-block w-100" alt="Lead Management Screenshot">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="/images/invoice.png" class="d-block w-100" alt="invoice Management Screenshot">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="/images/invoice_detail.png" class="d-block w-100" alt="invoice detail">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="/images/products.png" class="d-block w-100" alt="products Screenshot">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="/images/user.png" class="d-block w-100" alt="user Screenshot">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#screenshotCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#screenshotCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2>Complete CRM Functionality with AI Intelligence</h2>
+                    <p class="lead text-muted">Everything you need to manage your business, enhanced with intelligent automation and AI-powered insights</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa fa-bullseye feature-icon" style="color: #3B82F6;"></i>
+                        </div>
+                        <h3>Lead Management</h3>
+                        <p>Capture, track, and nurture leads from first contact to conversion. Organize leads in a centralized pool, assign to team members, and track follow-ups effortlessly.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa fa-users feature-icon" style="color: #10B981;"></i>
+                        </div>
+                        <h3>Customer Management</h3>
+                        <p>Maintain comprehensive customer profiles with contact information, interaction history, and relationship details. Never lose track of important customer data.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa fa-file-pdf-o feature-icon" style="color: #EC4899;"></i>
+                        </div>
+                        <h3>Invoice & Order Management</h3>
+                        <p>Complete business transaction management—create and track contracts, process orders with multiple products, and generate professional invoices. Handle discounts, payment schedules, PDF exports, and email delivery all in one streamlined system.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa fa-cube feature-icon" style="color: #14B8A6;"></i>
+                        </div>
+                        <h3>Product Management</h3>
+                        <p>Manage your product catalog with pricing, descriptions, and inventory information. Link products to orders and track product performance.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa fa-user-plus feature-icon" style="color: #F97316;"></i>
+                        </div>
+                        <h3>Team Collaboration</h3>
+                        <p>Invite team members, assign roles, and manage permissions. Work together seamlessly with role-based access control and team invitations.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa fa-bar-chart feature-icon" style="color: #6366F1;"></i>
+                        </div>
+                        <h3>Reports & Analytics</h3>
+                        <p>Get clear insights into your business with simple, actionable reports. Track sales, customer growth, and key metrics without complex dashboards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section section-alt" id="pricing">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2>Simple, Transparent Pricing</h2>
+                    <p class="lead">All plans include full access to all features. Pay only for scale.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="pricing-card">
+                        <h3>Starter</h3>
+                        <div class="price">$1.99</div>
+                        <p class="text-muted">/ month</p>
+                        <ul class="list-unstyled mt-4 mb-4 text-start">
+                            <li class="mb-3"><span class="check-icon">✓</span> 1 user</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Up to 100 customers</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Up to 100 products</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> 1 GB file storage</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> All features included</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Full support</li>
+                        </ul>
+                        <p class="text-muted small">Perfect for solo founders and freelancers</p>
+                        <a href="/site/register" class="btn btn-primary w-100 mt-4">Get Started</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="pricing-card featured">
+                        <h3>Pro</h3>
+                        <div class="price">$4.99</div>
+                        <p class="text-muted">/ month</p>
+                        <ul class="list-unstyled mt-4 mb-4 text-start">
+                            <li class="mb-3"><span class="check-icon">✓</span> Up to 3 users</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Up to 3,000 customers</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Up to 1,000 products</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> 5 GB file storage</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> All features included</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Priority support</li>
+                        </ul>
+                        <p class="text-muted small">Ideal for small teams and agencies</p>
+                        <a href="/site/register" class="btn btn-primary w-100 mt-4">Get Started</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="pricing-card">
+                        <h3>Business</h3>
+                        <div class="price">$9.99</div>
+                        <p class="text-muted">/ month</p>
+                        <ul class="list-unstyled mt-4 mb-4 text-start">
+                            <li class="mb-3"><span class="check-icon">✓</span> Up to 10 users</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Up to 20,000 customers</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Up to 10,000 products</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> 20 GB file storage</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> All features included</li>
+                            <li class="mb-3"><span class="check-icon">✓</span> Dedicated support</li>
+                        </ul>
+                        <p class="text-muted small">Built for growing small businesses</p>
+                        <a href="/site/register" class="btn btn-primary w-100 mt-4">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <p class="lead">No feature locks. No hidden fees. Upgrade or downgrade anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2>Trusted by Small Teams Worldwide</h2>
+                    <p class="lead text-muted">See what our customers say about TinyCrmGo</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial">
+                        <div class="testimonial-header">
+                            <img src="/images/user1.jpg" alt="Sarah Chen" class="testimonial-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2232%22 fill=%22%23e5e7eb%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%236b7280%22 font-size=%2220%22%3ESC%3C/text%3E%3C/svg%3E'">
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Sarah Chen</div>
+                                <div class="testimonial-role">Founder, Marketing Agency</div>
+                            </div>
+                        </div>
+                        <p>"We were up and running in under 10 minutes. The simplicity is exactly what we needed. No training required, and our team loves it."</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial">
+                        <div class="testimonial-header">
+                            <img src="/images/user2.jpg" alt="Michael Brown" class="testimonial-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2232%22 fill=%22%23e5e7eb%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%236b7280%22 font-size=%2220%22%3EMB%3C/text%3E%3C/svg%3E'">
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Michael Brown</div>
+                                <div class="testimonial-role">Freelance Consultant</div>
+                            </div>
+                        </div>
+                        <p>"Finally, a CRM that doesn't break the bank. At $1.99, I get everything I need to manage my clients. The value is incredible."</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial">
+                        <div class="testimonial-header">
+                            <img src="/images/user3.jpg" alt="Rebecca" class="testimonial-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2232%22 fill=%22%23e5e7eb%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%236b7280%22 font-size=%2220%22%3ER%3C/text%3E%3C/svg%3E'">
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Rebecca Martinez</div>
+                                <div class="testimonial-role">Operations Manager, Startup</div>
+                            </div>
+                        </div>
+                        <p>"The interface is so clean and intuitive. We switched from a complex CRM and our productivity increased immediately. Highly recommend!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-alt" id="faq">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <h2>Frequently Asked Questions</h2>
+                    <p class="lead text-muted">Everything you need to know about TinyCrmGo</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is TinyCrmGo really only $1.99 per month?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Yes! Our Starter plan is $1.99 per month and includes full access to all features. You only pay more when you need more users or customer capacity.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Are all features included in every plan?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Absolutely. All plans include the same complete feature set—lead management, customer management, invoice and order management, products, team collaboration, AI-enhanced features, reports, and audit logs. Pricing only varies by the number of users and customers you can manage.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How quickly can I get started?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-answer">
+                            You can be up and running in minutes. Simply sign up, verify your email, and start adding your leads and customers. No complex setup or training required.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I upgrade or downgrade my plan later?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Yes, you can change your plan at any time. Upgrades take effect immediately, and downgrades apply at your next billing cycle. No penalties or fees.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is my data secure?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Absolutely. We use enterprise-grade security measures including secure authentication, encrypted data transmission, regular backups, and GDPR-compliant data handling. Your data is safe and under your control.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Does TinyCrmGo work on mobile devices?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Yes! TinyCrmGo is fully responsive and works perfectly on desktop, tablet, and mobile devices. Access your CRM from anywhere, on any device with an internet connection.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What kind of support do you offer?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-answer">
+                            All plans include email support. Pro and Business plans include priority support with faster response times. We're committed to helping you succeed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Transform Your Business Management?</h2>
+            <p>Join hundreds of small teams who've simplified their CRM workflow</p>
+            <a href="/site/register" class="btn btn-primary"><i class="fa fa-rocket"></i> Start Your Free Trial</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h4 class="mb-3 text-light">TinyCrmGo</h4>
+                    <p class="text-light" style="opacity: 0.8;">AI-powered CRM built specifically for small teams. Simple, affordable, and intelligent.</p>
+                    <div class="mt-3">
+                        <a href="mailto:contact@tinycrmgo.com" class="text-light text-decoration-none">
+                            <i class="fa fa-envelope me-2"></i>contact@tinycrmgo.com
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h5 class="mb-3 text-light">Product</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#features" class="text-light text-decoration-none" style="opacity: 0.8;">Features</a></li>
+                        <li class="mb-2"><a href="#pricing" class="text-light text-decoration-none" style="opacity: 0.8;">Pricing</a></li>
+                        <li class="mb-2"><a href="#screenshots" class="text-light text-decoration-none" style="opacity: 0.8;">Screenshots</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h5 class="mb-3 text-light">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/site/login" class="text-light text-decoration-none" style="opacity: 0.8;">Login</a></li>
+                        <li class="mb-2"><a href="/site/register" class="text-light text-decoration-none" style="opacity: 0.8;">Sign Up</a></li>
+                        <li class="mb-2"><a href="#faq" class="text-light text-decoration-none" style="opacity: 0.8;">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-3 text-light">Contact Us</h5>
+                    <p class="text-light" style="opacity: 0.8;">Need help? We're here for you.</p>
+                    <p class="mb-2">
+                        <a href="mailto:contact@tinycrmgo.com" class="text-light text-decoration-none fs-5">
+                            <i class="fa fa-envelope me-2"></i>contact@tinycrmgo.com
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255, 255, 255, 0.2);">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="text-light mb-0" style="opacity: 0.8;">&copy; 2026 TinyCrmGo. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() {
+            // Smooth scrolling for anchor links
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 80
+                    }, 600);
+                }
+            });
+            
+            // FAQ accordion
+            $('.faq-question').on('click', function() {
+                var answer = $(this).next('.faq-answer');
+                var icon = $(this).find('span:last-child');
+                
+                // Close all other FAQs
+                $('.faq-answer').not(answer).slideUp(300).removeClass('active');
+                $('.faq-question').not(this).find('span:last-child').text('+');
+                
+                // Toggle current FAQ
+                answer.slideToggle(300).toggleClass('active');
+                icon.text(answer.hasClass('active') ? '−' : '+');
+            });
+            
+            // Navbar scroll effect
+            $(window).on('scroll', function() {
+                if ($(window).scrollTop() > 50) {
+                    $('.navbar').addClass('scrolled');
+                } else {
+                    $('.navbar').removeClass('scrolled');
+                }
+            });
+            
+            // Fade in animation on scroll
+            function checkFadeIn() {
+                $('.fade-in').each(function() {
+                    var elementTop = $(this).offset().top;
+                    var elementBottom = elementTop + $(this).outerHeight();
+                    var viewportTop = $(window).scrollTop();
+                    var viewportBottom = viewportTop + $(window).height();
+                    
+                    if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                        $(this).addClass('visible');
+                    }
+                });
+            }
+            
+            // Initial check and on scroll
+            checkFadeIn();
+            $(window).on('scroll', checkFadeIn);
+        });
+    </script>
+</body>
+</html>
