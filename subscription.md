@@ -320,6 +320,8 @@ Subscriptions cannot be canceled by users directly. If you need to cancel:
 
 For subscription and billing questions:
 
+**Website**: [https://www.tinycrmgo.com](https://www.tinycrmgo.com)
+
 **Email**: contact@tinycrmgo.com
 
 Our support team can help with:

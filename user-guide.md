@@ -479,6 +479,8 @@ View your activity history:
 
 For additional help or questions not covered in this guide:
 
+**Website**: [https://www.tinycrmgo.com](https://www.tinycrmgo.com)
+
 **Email**: contact@tinycrmgo.com
 
 You can also contact your system administrator for assistance.

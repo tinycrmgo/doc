@@ -326,9 +326,10 @@ Upgrades take effect immediately with prorated billing.
 
 If your question isn't answered here:
 
-1. **Check Documentation**: Review the [User Guide](user-guide.md) or [Administrator Guide](admin-guide.md)
-2. **Contact Administrator**: Reach out to your organization's administrator
-3. **Support**: Contact us at **contact@tinycrmgo.com**
+1. **Visit Website**: [https://www.tinycrmgo.com](https://www.tinycrmgo.com)
+2. **Check Documentation**: Review the [User Guide](user-guide.md) or [Administrator Guide](admin-guide.md)
+3. **Contact Administrator**: Reach out to your organization's administrator
+4. **Support**: Contact us at **contact@tinycrmgo.com**
 
 ---
 

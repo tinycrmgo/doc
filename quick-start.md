@@ -13,7 +13,7 @@ Welcome to TinyCRM! This guide will help you get started in just 5 minutes.
 
 ## Step 1: Login
 
-1. Navigate to the TinyCRM login page
+1. Navigate to the TinyCRM login page at [https://www.tinycrmgo.com](https://www.tinycrmgo.com)
 2. Enter your **email** and **password**
 3. Click **Login**
 
