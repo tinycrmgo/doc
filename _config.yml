@@ -1,0 +1,9 @@
+# Jekyll Configuration for TinyCRM Documentation
+# Theme: just-the-docs (perfect for documentation sites)
+
+title: TinyCRM Documentation
+description: Complete guide to using TinyCRM for managing leads, customers, invoices, and products
+url: https://www.tinycrmgo.com
+
+# Theme
+theme: jekyll-theme-minima
